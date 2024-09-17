@@ -92,7 +92,7 @@ app.post('/forgot-password', async (req, res) => {
       to: email,
       from: process.env.EMAIL_USER,
       subject: 'Password Reset',
-      text: `Click the link to reset your password: ${process.env.FRONTEND_URL}/reset-password/${token}`
+      text: `Click the link to reset your password: ${process.env.FRONTEND_URL}reset-password/${token}`
     };
 
     transporter.sendMail(mailOptions, (err) => {
