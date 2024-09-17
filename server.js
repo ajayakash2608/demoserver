@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+const crypto = require('crypto'); // Use crypto for generating secure tokens
 require('dotenv').config();
 
 const app = express();
@@ -74,7 +75,7 @@ app.post('/forgot-password', async (req, res) => {
       return res.status(404).send('User not found');
     }
 
-    const token = Math.random().toString(36).substr(2);
+    const token = crypto.randomBytes(32).toString('hex'); // Use crypto for secure token generation
     user.resetToken = token;
     user.resetTokenExpiration = Date.now() + 3600000;
     await user.save();
